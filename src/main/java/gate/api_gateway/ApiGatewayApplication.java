@@ -1,13 +1,21 @@
 package gate.api_gateway;
 
+import io.netty.handler.codec.http.HttpMethod;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.reactive.CorsWebFilter;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
+
+import java.util.Arrays;
+
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -24,6 +32,34 @@ public class ApiGatewayApplication {
 			// If token invalid → block
 			return chain.filter(exchange);
 		}
+	}
+
+//	@Bean
+//	public WebMvcConfigurer mvcConfigurer() {
+//		return new WebMvcConfigurer() {
+//			@Override
+//			public void addCorsMappings(CorsRegistry registry) {
+//				registry.addMapping("/**")
+//						.allowedOrigins( "http://localhost:4200")
+//						.allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH")
+//						.allowedHeaders("*");
+//			}
+//		};
+//	}
+
+	// ✅ CORS Configuration
+	@Bean
+	public CorsWebFilter corsWebFilter() {
+		CorsConfiguration config = new CorsConfiguration();
+		config.setAllowCredentials(true);
+		config.setAllowedOrigins(Arrays.asList("*")); // or specify allowed origins like "http://localhost:4200"
+		config.setAllowedHeaders(Arrays.asList("*"));
+		config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", config);
+
+		return new CorsWebFilter(source);
 	}
 
 }
