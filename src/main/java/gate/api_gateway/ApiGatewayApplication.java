@@ -1,6 +1,5 @@
 package gate.api_gateway;
 
-import io.netty.handler.codec.http.HttpMethod;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -15,7 +14,6 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
-
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -34,20 +32,6 @@ public class ApiGatewayApplication {
 		}
 	}
 
-//	@Bean
-//	public WebMvcConfigurer mvcConfigurer() {
-//		return new WebMvcConfigurer() {
-//			@Override
-//			public void addCorsMappings(CorsRegistry registry) {
-//				registry.addMapping("/**")
-//						.allowedOrigins( "http://localhost:4200")
-//						.allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH")
-//						.allowedHeaders("*");
-//			}
-//		};
-//	}
-
-	// ✅ CORS Configuration
 	@Bean
 	public CorsWebFilter corsWebFilter() {
 		CorsConfiguration config = new CorsConfiguration();
@@ -61,5 +45,4 @@ public class ApiGatewayApplication {
 
 		return new CorsWebFilter(source);
 	}
-
 }
