@@ -32,17 +32,18 @@ public class ApiGatewayApplication {
 //		}
 //	}
 
-	@Bean
-	public CorsWebFilter corsWebFilter() {
-		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowCredentials(true);
-		config.setAllowedOrigins(Arrays.asList("*")); // or specify allowed origins like "http://localhost:4200"
-		config.setAllowedHeaders(Arrays.asList("*"));
-		config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+//	@Bean
+//	public CorsWebFilter corsWebFilter() {
+//		CorsConfiguration config = new CorsConfiguration();
+//		config.setAllowCredentials(true);
+//		config.setAllowedOrigins( "http://localhost:4200");
+//		config.setAllowedHeaders(Arrays.asList("*"));
+//		config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+//
+//		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//		source.registerCorsConfiguration("/**", config);
+//
+//		return new CorsWebFilter(source);
+//	}
 
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", config);
-
-		return new CorsWebFilter(source);
-	}
 }
