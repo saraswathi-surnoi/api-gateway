@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults()) // Enable CORS (but this alone is not enough)
                 .csrf(csrf -> csrf.disable())
                 .authorizeExchange(exchanges -> exchanges
-                        .pathMatchers("/user/login").permitAll()
+                        .pathMatchers("/user/add","/user/login").permitAll()
                         .anyExchange().authenticated()
                 )
                 .addFilterAt(jwtWebFilter, SecurityWebFiltersOrder.AUTHENTICATION)
