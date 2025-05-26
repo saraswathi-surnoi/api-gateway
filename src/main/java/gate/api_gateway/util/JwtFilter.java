@@ -3,7 +3,9 @@ package gate.api_gateway.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -49,8 +51,15 @@ public class JwtFilter implements WebFilter {
         // Validate JWT
         if (!jwtUtil.validateToken(jwt)) {
             logger.warn("Invalid JWT token");
+            String message = "{\"error\": \"Unauthorized access\"}";
+            byte[] bytes = message.getBytes();
+            DataBuffer buffer = exchange.getResponse().bufferFactory().wrap(bytes);
+
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
-            return exchange.getResponse().setComplete();
+            exchange.getResponse().getHeaders().setContentType(MediaType.APPLICATION_JSON);
+            exchange.getResponse().getHeaders().setContentLength(bytes.length);
+
+            return exchange.getResponse().writeWith(Mono.just(buffer));
         }
 
         // Extract username
@@ -79,7 +88,12 @@ public class JwtFilter implements WebFilter {
                                 .contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication));
                     } else if (response.getStatusCode() == HttpStatus.EXPECTATION_FAILED) {
                         logger.warn("Token not found or device not logged in");
+                        String message = "{\"error\": \"device not logged in\"}";
+                        byte[] bytes = message.getBytes();
+                        DataBuffer buffer = exchange.getResponse().bufferFactory().wrap(bytes);
+
                         exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+                        exchange.getResponse().getHeaders().setContentType(MediaType.APPLICATION_JSON);
                         return exchange.getResponse().setComplete();
                     } else {
                         // Propagate other statuses as errors
