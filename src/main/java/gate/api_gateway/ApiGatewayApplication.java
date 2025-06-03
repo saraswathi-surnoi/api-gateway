@@ -22,16 +22,6 @@ public class ApiGatewayApplication {
 		SpringApplication.run(ApiGatewayApplication.class, args);
 	}
 
-//	@Component
-//	public class JwtAuthFilter implements GlobalFilter {
-//		// Inject JwtUtil and validate
-//		public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-//			String authHeader = exchange.getRequest().getHeaders().getFirst("Authorization");
-//			// If token invalid → block
-//			return chain.filter(exchange);
-//		}
-//	}
-
 //	@Bean
 //	public CorsWebFilter corsWebFilter() {
 //		CorsConfiguration config = new CorsConfiguration();
