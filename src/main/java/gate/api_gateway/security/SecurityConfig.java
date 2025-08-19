@@ -40,7 +40,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("http://fusioniq-frontent.s3-website.ap-south-1.amazonaws.com","http://localhost:4200")); // Replace "*" with specific origins if needed
+        config.setAllowedOrigins(Arrays.asList("http://fusioniq-frontent.s3-website.ap-south-1.amazonaws.com", "http://localhost:4200")); // Replace "*" with specific origins if needed
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(Arrays.asList("*"));
         config.setAllowCredentials(true);
