@@ -1,6 +1,8 @@
 @Library('fusioniq-shared-lib') _
+
 fusioniqPipeline(
-  repoUrl: 'https://github.com/SurnoiTechnology/API-Gateway-Service-FusionIQ-BE.git',
-  gitCreds: 'git-access',
-  ecrUri: '361769585646.dkr.ecr.ap-south-1.amazonaws.com/fusioniq/backend'
+  repoUrl: 'https://github.com/saraswathi-surnoi/api-gateway.git',
+  gitCreds: 'git-acc',
+  ecrUri: '361769585646.dkr.ecr.ap-south-1.amazonaws.com/fusioniq/backend',
+  branch: 'devops'  // ✅ Add this line to specify your actual branch
 )
