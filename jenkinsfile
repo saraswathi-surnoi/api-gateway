@@ -1,7 +1,6 @@
 @Library('fusioniq-shared-lib') _
-
 fusioniqPipeline(
   repoUrl: 'https://github.com/SurnoiTechnology/API-Gateway-Service-FusionIQ-BE.git',
-  gitCredsId: 'git-access',
+  gitCreds: 'git-access',
   ecrUri: '361769585646.dkr.ecr.ap-south-1.amazonaws.com/fusioniq/backend'
 )
